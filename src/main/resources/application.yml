@@ -1,6 +1,12 @@
 spring:
   profiles:
     active: local
+  batch:
+    job:
+      names: ${job.name:NONE}
+  main:
+    allow-bean-definition-overriding: true
+
 
 ---
 spring:
@@ -21,4 +27,3 @@ spring:
       username: s2onion
       password: 1q2w3e!@
       driver-class-name: com.mysql.cj.jdbc.Driver
-

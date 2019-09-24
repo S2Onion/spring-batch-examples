@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.batch.example.batch.base.mapper.BatchBaseInfoMapper">
+
+    <select id="selectBatchBaseInfo" parameterType="BatchBaseInfoVO" resultType="BatchBaseInfoVO">
+        SELECT /* batchBaseInfoMapper.selectBatchBaseInfo */
+               tbbi.job_name         AS jobName
+             , tbbi.batch_sts_cd     AS batchStsCd
+             , tbbi.batch_start_dttm AS batchStartDttm
+             , tbbi.batch_end_dttm   AS batchEndDttm
+        FROM   tbl_batch_base_info tbbi
+        WHERE  tbbi.job_name = #{jobName}
+    </select>
+
+    <update id="updateInprogress" parameterType="BatchBaseInfoVO">
+        UPDATE /* batchBaseInfoMapper.updateInprogress */
+               tbl_batch_base_info
+        SET    batch_sts_cd     = 'INPROGRESS'
+             , batch_start_dttm = NOW()
+             , batch_end_dttm   = NULL
+             , batch_rslt_cd    = NULL
+        WHERE  job_name = #{jobName}
+    </update>
+
+    <update id="updateBatchResult" parameterType="BatchBaseInfoVO">
+        UPDATE /* batchBaseInfoMapper.updateBatchResult */
+               tbl_batch_base_info
+        SET    batch_sts_cd     = #{batchStsCd}
+             , batch_end_dttm   = NOW()
+             , batch_rslt_cd    = #{batchRsltCd}
+             , batch_err_msg    = #{batchErrMsg}
+        WHERE  job_name = #{jobName}
+    </update>
+
+</mapper>

@@ -8,12 +8,6 @@ public class JobPropertiesPath {
 
     public static String getJobPropertiesPath(String jobName) {
         String propPath = "";
-
-        if ( StringUtils.equals("executePsnlDataMask", jobName) ) {
-            propPath = "properties/maskPsnlDataJob.properties";
-        } else {
-            log.warn("Fail to search a properties path.");
-        }
         return propPath;
     }
 }
